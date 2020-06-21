@@ -10,12 +10,16 @@ from flask import (
     url_for
 )
 from flask_sqlalchemy import SQLAlchemy
+from flask_restx import Resource, Api
 
 
 app = Flask(__name__)
 app.config.from_object("project.config.Config")
 db = SQLAlchemy(app)
 
+from project.models import Monitor
+
+api = Api(app)
 
 class User(db.Model):
     __tablename__ = "users"
@@ -28,31 +32,38 @@ class User(db.Model):
         self.email = email
 
 
-@app.route("/")
-def hello_world():
-    return jsonify(hello="world")
+# @app.route("/")
+# def hello_world():
+#     return jsonify(hello="world")
 
 
-@app.route("/static/<path:filename>")
-def staticfiles(filename):
-    return send_from_directory(app.config["STATIC_FOLDER"], filename)
+@api.route("/monitor")
+class MonitorList(Resource):
+  def get(self):
+    monitors = Monitor.query.all()
+    return monitors[0].name
 
 
-@app.route("/media/<path:filename>")
-def mediafiles(filename):
-    return send_from_directory(app.config["MEDIA_FOLDER"], filename)
+# @app.route("/static/<path:filename>")
+# def staticfiles(filename):
+#     return send_from_directory(app.config["STATIC_FOLDER"], filename)
 
 
-@app.route("/upload", methods=["GET", "POST"])
-def upload_file():
-    if request.method == "POST":
-        file = request.files["file"]
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config["MEDIA_FOLDER"], filename))
-    return f"""
-    <!doctype html>
-    <title>upload new File</title>
-    <form action="" method=post enctype=multipart/form-data>
-      <p><input type=file name=file><input type=submit value=Upload>
-    </form>
-    """
+# @app.route("/media/<path:filename>")
+# def mediafiles(filename):
+#     return send_from_directory(app.config["MEDIA_FOLDER"], filename)
+
+
+# @app.route("/upload", methods=["GET", "POST"])
+# def upload_file():
+#     if request.method == "POST":
+#         file = request.files["file"]
+#         filename = secure_filename(file.filename)
+#         file.save(os.path.join(app.config["MEDIA_FOLDER"], filename))
+#     return f"""
+#     <!doctype html>
+#     <title>upload new File</title>
+#     <form action="" method=post enctype=multipart/form-data>
+#       <p><input type=file name=file><input type=submit value=Upload>
+#     </form>
+#     """

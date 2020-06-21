@@ -1,3 +1,61 @@
+
+
+
+# snowtify-api
+
+
+
+1. Get alerts when there are runaway queries in last 1 hour
+
+
+- Airflow DBT runs
+  - built snowflake query performance metrics
+
+Data Base Design
+- query_performance_metrics
+
+- alerts
+  - alert_config_id
+  - name
+  - created_at
+  - status
+  - metadata
+  - description
+
+- alert_configs
+  - id (foreign key alerts.alert_config_id)
+  - slack_channel
+  - slack_message
+
+- monitors
+  - type
+    - query credit quota
+    - runnaway query
+    - query sla
+    - clustering credits quota
+    - materialized view credits quota
+    - snowpipe credit quota
+  - credits_used
+  - name
+  - credit_quota
+  - frequency
+  - start_time
+  - end_time
+  - notify_threshold
+  - created_at
+  - created_by
+  - owner
+  - comment
+
+
+
+API Design
+- alerts
+
+
+-----
+
+
 # Dockerizing Flask with Postgres, Gunicorn, and Nginx
 
 ## Want to learn how to build this?

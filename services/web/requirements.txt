@@ -1,4 +1,7 @@
 Flask==1.1.1
 Flask-SQLAlchemy==2.4.1
+flask-restx
+Flask-Script
+Flask-Migrate
 gunicorn==20.0.4
 psycopg2-binary==2.8.4
