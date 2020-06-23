@@ -1,0 +1,7 @@
+column_name, value
+query_text, Autocommit
+query_text, SELECT 1
+query_text, rollback
+query_text, commit
+query_text, begin
+query_text, SELECT SYSTEM

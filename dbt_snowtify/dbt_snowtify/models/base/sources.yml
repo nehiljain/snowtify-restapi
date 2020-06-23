@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: snowflake
+    database: snowflake
+    schema: account_usage
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    tables:
+      - name: query_history
+      - name: warehouse_metering_history
+      - name: automatic_clustering_history
+      - name: materialized_view_refresh_history
+      - name: pipe_usage_history

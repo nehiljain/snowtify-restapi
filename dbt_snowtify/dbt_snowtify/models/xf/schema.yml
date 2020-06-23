@@ -1,0 +1,81 @@
+version: 2
+
+models:
+    - name: snowflake_warehouse_metering_xf
+      description: This is the transformed model for the Snowflake Warehouse Metering History table https://docs.snowflake.net/manuals/sql-reference/account-usage/warehouse_metering_history.html.
+      columns:
+      - name: warehouse_id
+      - name: warehouse_name
+      - name: start_time
+      - name: end_time
+      - name: credits_used
+      - name: usage_month
+        description: Uses the end date to define the month the usage occurred.
+      - name: usage_length
+        description: Determines the number of hours between the start and end times.
+      - name: credits_used
+      - name: dollars_spent
+        description: Calculates the dollar value based on the credits consumed.
+    
+    - name: snowflake_query_performance_xf
+      description: This is the transformed model for snowflake query performance
+      columns:
+      - name: snowflake_query_id
+        tests:
+          - not_null
+          - unique
+      - name: database_id
+        tests:
+          - not_null
+      - name: schema_id
+      - name: snowflake_session_id
+        tests:
+          - not_null
+      - name: warehouse_id
+        tests:
+          - not_null
+      - name: database_name
+        tests:
+          - not_null
+      - name: query_text
+        tests:
+          - not_null
+      - name: snowflake_role_name
+        tests:
+          - not_null
+      - name: query_result_rows_produced
+      - name: schema_name
+      - name: snowflake_user_name
+      - name: warehouse_name
+        tests:
+          - not_null
+      - name: query_end_time
+      - name: query_start_time
+        tests:
+          - not_null
+      - name: query_bytes_spillover_local
+        tests:
+          - not_null
+      - name: query_bytes_spillover_remote
+        tests:
+          - not_null
+      - name: query_bytes_scanned
+      - name: query_execution_date
+      - name: query_execution_month
+        tests:
+          - not_null
+      - name: query_execution_year
+        tests:
+          - not_null
+      - name: query_execution_first_day_of_month
+        description: "Query execution first day of month"
+        tests:
+          - not_null
+      - name: query_execution_time_mins
+        description: "Query execution time in mins"
+        tests:
+        - not_null
+      - name: query_total_spillover_mb
+        description: "Total Data overflow to disk (local + remote) in MB"
+        tests:
+        - not_null
